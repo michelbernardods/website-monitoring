@@ -43,7 +43,7 @@ func showForm() {
 func showMenu() {
 	fmt.Println("Hello,", nomeLido, "enter one of the options below.")
 	fmt.Println(color.Ize(color.Cyan, "1 - Monitor website"))
-	fmt.Println(color.Ize(color.Yellow, "2 - Exit"))
+	fmt.Println(color.Ize(color.Red, "2 - Exit"))
 }
 
 func readCommand() int {
