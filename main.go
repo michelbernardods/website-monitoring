@@ -5,6 +5,8 @@ import (
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/TwinProduction/go-color"
 )
 
 func main() {
@@ -32,7 +34,7 @@ func main() {
 var nomeLido string
 
 func showForm() {
-	fmt.Print("Your Nome: ")
+	fmt.Print(color.Ize(color.Green, "Your Nome: "))
 	fmt.Scan(&nomeLido)
 	//command to clean terminal
 	fmt.Print("\033[H\033[2J")
@@ -40,8 +42,8 @@ func showForm() {
 
 func showMenu() {
 	fmt.Println("Hello,", nomeLido, "enter one of the options below.")
-	fmt.Println("1 - Monitor website")
-	fmt.Println("2 - Exit")
+	fmt.Println(color.Ize(color.Cyan, "1 - Monitor website"))
+	fmt.Println(color.Ize(color.Yellow, "2 - Exit"))
 }
 
 func readCommand() int {
@@ -57,7 +59,8 @@ func readCommand() int {
 func siteMonitor() string {
 	var site string
 
-	fmt.Print("Site to monitor: ", site)
+	print(color.Green + "Site to monitor: " + site + color.Reset)
+
 	fmt.Scan(&site)
 	//command to clean terminal
 	fmt.Print("\033[H\033[2J")
@@ -74,10 +77,11 @@ func testSite(site string) {
 
 	if response.StatusCode == http.StatusOK {
 		fmt.Println(dt.Format("01-02-2006 15:04:05 Monday"))
-		fmt.Print("Website: ", site, " - Online \n\n")
+		print(color.Green + "Website: " + site + " - Online \n\n " + color.Reset)
 
 	} else {
-		fmt.Print("The website: ", site, " has a problem. Status Code:", response.StatusCode, "\n\n")
+		print(color.Red+"The website: "+site+" has a problem. Status Code:", response.StatusCode, "\n\n"+color.Reset)
+
 		os.Exit(0)
 	}
 }
