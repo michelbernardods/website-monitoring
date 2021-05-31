@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/TwinProduction/go-color"
@@ -18,7 +19,7 @@ func main() {
 
 		switch comando {
 		case 1:
-			iniciarMonitorameno()
+			startMonitoring()
 			fmt.Println("monitoring started.")
 		case 2:
 			fmt.Println("Going out...")
@@ -86,10 +87,39 @@ func testSite(site string) {
 	}
 }
 
-func iniciarMonitorameno() {
+func startMonitoring() {
 	site := siteMonitor()
-	for {
-		testSite(site)
-		time.Sleep(5 * time.Second)
+	var interval string
+	var setTimeDuration int
+	fmt.Print(color.Ize(color.Green, "Hour | Minute | Second: "))
+	fmt.Scan(&interval)
+	interval = strings.ToLower(interval)
+	fmt.Println(interval)
+
+	if interval == "hour" {
+		fmt.Print(color.Ize(color.Green, "Tempo: "))
+		fmt.Scan(&setTimeDuration)
+		for {
+			testSite(site)
+			time.Sleep(time.Duration(setTimeDuration) * time.Hour)
+		}
+	} else if interval == "minute" {
+		fmt.Print(color.Ize(color.Green, "Tempo: "))
+		fmt.Scan(&setTimeDuration)
+		for {
+			testSite(site)
+			time.Sleep(time.Duration(setTimeDuration) * time.Minute)
+		}
+
+	} else if interval == "second" {
+		fmt.Print(color.Ize(color.Green, "Tempo: "))
+		fmt.Scan(&setTimeDuration)
+		for {
+			testSite(site)
+			time.Sleep(time.Duration(setTimeDuration) * time.Second)
+		}
+	} else {
+		fmt.Println("Option invalid")
+		os.Exit(0)
 	}
 }
