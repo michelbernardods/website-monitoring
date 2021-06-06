@@ -8,16 +8,16 @@ import (
 	"time"
 
 	"github.com/TwinProduction/go-color"
+	"github.com/martinlindhe/notify"
 )
 
 func main() {
 	showForm()
 	for {
 		showMenu()
+		command := readCommand()
 
-		comando := readCommand()
-
-		switch comando {
+		switch command {
 		case 1:
 			startMonitoring()
 			fmt.Println("monitoring started.")
@@ -82,7 +82,7 @@ func testSite(site string) {
 
 	} else {
 		print(color.Red+"The website: "+site+" has a problem. Status Code:", response.StatusCode, "\n\n"+color.Reset)
-
+		notify.Alert("app name", "ALERT!", "Site failed: "+site, "path/to/icon.png")
 		os.Exit(0)
 	}
 }
@@ -96,6 +96,7 @@ func startMonitoring() {
 	interval = strings.ToLower(interval)
 	fmt.Println(interval)
 
+	// Mudar if para switch
 	if interval == "hour" {
 		fmt.Print(color.Ize(color.Green, "Tempo: "))
 		fmt.Scan(&setTimeDuration)
