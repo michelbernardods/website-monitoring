@@ -12,7 +12,6 @@ import (
 )
 
 func main() {
-	showForm()
 	for {
 		showMenu()
 		comando := readCommand()
@@ -32,17 +31,8 @@ func main() {
 	}
 }
 
-var nomeLido string
-
-func showForm() {
-	fmt.Print(color.Ize(color.Green, "Your Nome: "))
-	fmt.Scan(&nomeLido)
-	//command to clean terminal
-	fmt.Print("\033[H\033[2J")
-}
-
 func showMenu() {
-	fmt.Println("Hello,", nomeLido, "enter one of the options below.")
+	fmt.Println("Enter one of the options below.")
 	fmt.Println(color.Ize(color.Cyan, "1 - Monitor website"))
 	fmt.Println(color.Ize(color.Red, "2 - Exit"))
 }
@@ -50,7 +40,7 @@ func showMenu() {
 func readCommand() int {
 	var command int
 
-	fmt.Printf("- Option: ")
+	fmt.Print(color.Ize(color.Green, "- Option: "))
 	fmt.Scan(&command)
 	fmt.Println("The chosen command was:", command)
 	fmt.Println("")
@@ -96,29 +86,29 @@ func startMonitoring() {
 	interval = strings.ToLower(interval)
 	fmt.Println(interval)
 
-	if interval == "hour" {
-		fmt.Print(color.Ize(color.Green, "Tempo: "))
+	switch interval {
+	case "hour":
+		fmt.Print(color.Ize(color.Green, "Time interval: "))
 		fmt.Scan(&setTimeDuration)
 		for {
 			testSite(site)
 			time.Sleep(time.Duration(setTimeDuration) * time.Hour)
 		}
-	} else if interval == "minute" {
-		fmt.Print(color.Ize(color.Green, "Tempo: "))
+	case "minute":
+		fmt.Print(color.Ize(color.Green, "Time interval: "))
 		fmt.Scan(&setTimeDuration)
 		for {
 			testSite(site)
 			time.Sleep(time.Duration(setTimeDuration) * time.Minute)
 		}
-
-	} else if interval == "second" {
-		fmt.Print(color.Ize(color.Green, "Tempo: "))
+	case "second":
+		fmt.Print(color.Ize(color.Green, "Time interval: "))
 		fmt.Scan(&setTimeDuration)
 		for {
 			testSite(site)
 			time.Sleep(time.Duration(setTimeDuration) * time.Second)
 		}
-	} else {
+	default:
 		fmt.Println("Option invalid")
 		os.Exit(0)
 	}
