@@ -4,7 +4,7 @@
   ☕ Code and coffee
 </h4>
 
-## 💻 Abou The Project
+## 💻 About The Project
 `Monitors if website is online. If the site goes down you will receive a notification and an error response.`
 
 ## Requisites and Run monitoring
