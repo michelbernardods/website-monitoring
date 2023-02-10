@@ -102,6 +102,11 @@ func startMonitoring() {
 			requestSite(site)
 			time.Sleep(time.Duration(setTimeDuration) * time.Second)
 		}
+	case 4:
+		fmt.Print("\033[H\033[2J")
+		fmt.Println("Going out...")
+		time.Sleep(1 * time.Second)
+		os.Exit(0)
 	default:
 		fmt.Print("\033[H\033[2J")
 		print(color.Red + " --- ENTER A VALID OPTION --- ")
@@ -117,5 +122,5 @@ func showMenu() {
 
 func showMenuTimer() {
 	fmt.Println("Enter one of the options below.")
-	fmt.Print(color.Ize(color.Cyan, "1 - Hour | 2 - Minute | 3 - Second: \n\n"))
+	fmt.Print(color.Ize(color.Cyan, "1 - Hour | 2 - Minute | 3 - Second | 4 - Exit: \n\n"))
 }
