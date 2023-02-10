@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"net/http"
 	"os"
-	"strings"
 	"time"
 
 	"github.com/TwinProduction/go-color"
@@ -33,12 +32,6 @@ func main() {
 	}
 }
 
-func showMenu() {
-	fmt.Println("Enter one of the options below.")
-	fmt.Println(color.Ize(color.Cyan, "1 - Monitor website"))
-	fmt.Println(color.Ize(color.Red, "2 - Exit"))
-}
-
 func readCommand() int {
 	var command int
 
@@ -61,7 +54,7 @@ func siteMonitor() string {
 	return site
 }
 
-func testSite(site string) {
+func requestSite(site string) {
 	response, err := http.Get(site)
 	dt := time.Now()
 
@@ -81,38 +74,48 @@ func testSite(site string) {
 }
 
 func startMonitoring() {
-	site := siteMonitor()
-	var interval string
 	var setTimeDuration int
-	fmt.Print(color.Ize(color.Green, "Hour | Minute | Second: "))
-	fmt.Scan(&interval)
-	interval = strings.ToLower(interval)
-	fmt.Println(interval)
+	site := siteMonitor()
+
+	showMenuTimer()
+	interval := readCommand()
 
 	switch interval {
-	case "hour":
+	case 1:
 		fmt.Print(color.Ize(color.Green, "Time interval: "))
 		fmt.Scan(&setTimeDuration)
 		for {
-			testSite(site)
+			requestSite(site)
 			time.Sleep(time.Duration(setTimeDuration) * time.Hour)
 		}
-	case "minute":
+	case 2:
 		fmt.Print(color.Ize(color.Green, "Time interval: "))
 		fmt.Scan(&setTimeDuration)
 		for {
-			testSite(site)
+			requestSite(site)
 			time.Sleep(time.Duration(setTimeDuration) * time.Minute)
 		}
-	case "second":
+	case 3:
 		fmt.Print(color.Ize(color.Green, "Time interval: "))
 		fmt.Scan(&setTimeDuration)
 		for {
-			testSite(site)
+			requestSite(site)
 			time.Sleep(time.Duration(setTimeDuration) * time.Second)
 		}
 	default:
-		fmt.Println("Option invalid")
-		os.Exit(0)
+		fmt.Print("\033[H\033[2J")
+		print(color.Red + " --- ENTER A VALID OPTION --- ")
+		showMenuTimer()
 	}
+}
+
+func showMenu() {
+	fmt.Println("Enter one of the options below.")
+	fmt.Println(color.Ize(color.Cyan, "1 - Monitor website"))
+	fmt.Println(color.Ize(color.Red, "2 - Exit"))
+}
+
+func showMenuTimer() {
+	fmt.Println("Enter one of the options below.")
+	fmt.Print(color.Ize(color.Cyan, "1 - Hour | 2 - Minute | 3 - Second: \n\n"))
 }
