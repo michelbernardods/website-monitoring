@@ -21,12 +21,14 @@ func main() {
 			startMonitoring()
 			fmt.Println("monitoring started.")
 		case 2:
+			fmt.Print("\033[H\033[2J")
 			fmt.Println("Going out...")
 			time.Sleep(1 * time.Second)
 			os.Exit(0)
 		default:
-			fmt.Println("Option invalid")
-			os.Exit(-1)
+			fmt.Print("\033[H\033[2J")
+			print(color.Red + " --- ENTER A VALID OPTION --- ")
+			showMenu()
 		}
 	}
 }
@@ -48,6 +50,7 @@ func readCommand() int {
 }
 
 func siteMonitor() string {
+	fmt.Print("\033[H\033[2J")
 	var site string
 
 	print(color.Green + "Site to monitor: " + site + color.Reset)
