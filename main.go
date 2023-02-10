@@ -69,11 +69,11 @@ func testSite(site string) {
 		fmt.Println("Site is not found", err)
 	}
 
-	if response.StatusCode == http.StatusOK {
+	switch response.StatusCode {
+	case http.StatusOK:
 		fmt.Println(dt.Format("01-02-2006 15:04:05 Monday"))
 		print(color.Green + "Website: " + site + " - Online \n\n " + color.Reset)
-
-	} else {
+	default:
 		print(color.Red+"The website: "+site+" has a problem. Status Code:", response.StatusCode, "\n\n"+color.Reset)
 		notify.Alert("app name", "ALERT!", "Site failed: "+site, "path/to/icon.png")
 		os.Exit(0)
