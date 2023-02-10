@@ -11,6 +11,7 @@
  -  Have golang installed.
     - If you don't have the installation link: https://golang.org/
 - To run, type the command below:
+    - go mod tidy
     - go run main.go
     
 ###### If you discover an error or want to contribute, clone the project and open a pull request.
